@@ -71,19 +71,11 @@ jobs:
           python run.py -j result.json -l logs -r haproxy=ghcr.io/${{ github.repository }}:libressl -t ${{ matrix.suite.tests }} -c ${{ matrix.suite.client }} -s haproxy
 
 
-      - name: Logs clean
+      - name: Delete succeeded logs
         if: failure()
         run: |
           cd quic-interop-runner/logs/haproxy_${{ matrix.suite.client }}
-          pwd
-          echo '==============================='
-          ls
-          echo '==============================='
-          cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name'
-          echo '==============================='
           cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name' | xargs rm -rf
-          echo '==============================='
-          ls
     
       - name: Logs upload
         if: failure()
