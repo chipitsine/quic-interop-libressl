@@ -74,7 +74,7 @@ jobs:
       - name: Logs clean
         if: failure()
         run: |
-          cd quic-interop-runner/logs/
+          cd quic-interop-runner/logs/haproxy_${{ matrix.suite.client }}
           pwd
           ls
           cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name' 
