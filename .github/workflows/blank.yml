@@ -76,9 +76,13 @@ jobs:
         run: |
           cd quic-interop-runner/logs/haproxy_${{ matrix.suite.client }}
           pwd
+          echo '==============================='
           ls
-          cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name' 
+          echo '==============================='
+          cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name'
+          echo '==============================='
           cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name' | xargs rm -rf
+          echo '==============================='
           ls
     
       - name: Logs upload
