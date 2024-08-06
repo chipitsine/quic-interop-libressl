@@ -78,8 +78,8 @@ jobs:
       - name: Logs clean
         if: failure()
         run: |
-          cd quic-interop-runner/logs
-          cat ../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name' | xargs rm -rf
+          cd quic-interop-runner/logs/haproxy-${{ matrix.suite.client }}
+          cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name' | xargs rm -rf
     
       - name: Logs upload
         if: failure()
