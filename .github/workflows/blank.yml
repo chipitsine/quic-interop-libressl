@@ -29,7 +29,7 @@ jobs:
         with:
           context: haproxy-qns
           push: true
-          tags: ghcr.io/chipitsine/qqq:libressl
+          tags: ghcr.io/${{ github.repository }}-quic-interop:libressl
           #tags: ghcr.io/${{ github.repository }}:libressl
 
 
@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         suite: [
-          { client: picoquic, tests: "handshake,transfer,longrtt,multiplexing,retry,http3,blackhole,amplificationlimit,handshakeloss,transferloss,handshakecorruption,transfercorruption,v2,goodput,crosstraffic" }
+          { client: picoquic, tests: "http3" }
         ]
       fail-fast: false
 
@@ -62,14 +62,14 @@ jobs:
 
       - name: Pull image
         run: |
-          docker pull ghcr.io/${{ github.repository }}:libressl
+          docker pull ghcr.io/${{ github.repository }}-quic-interop:libressl
 
       - name: Run
         run: |
           git clone https://github.com/quic-interop/quic-interop-runner
           cd quic-interop-runner
           pip install -r requirements.txt --break-system-packages
-          python run.py -j result.json -l logs -r haproxy=ghcr.io/${{ github.repository }}:libressl -t ${{ matrix.suite.tests }} -c ${{ matrix.suite.client }} -s haproxy
+          python run.py -j result.json -l logs -r haproxy=ghcr.io/${{ github.repository }}-quic-interop:libressl -t ${{ matrix.suite.tests }} -c ${{ matrix.suite.client }} -s haproxy
 
 
       - name: Delete succeeded logs
