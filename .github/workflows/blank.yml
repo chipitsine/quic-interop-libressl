@@ -29,7 +29,8 @@ jobs:
         with:
           context: haproxy-qns
           push: true
-          tags: ghcr.io/${{ github.repository }}:libressl
+          tags: ghcr.io/chipitsine/qqq:libressl
+          #tags: ghcr.io/${{ github.repository }}:libressl
 
 
   run:
