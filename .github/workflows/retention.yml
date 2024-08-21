@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch:
+
+
+jobs:
+  delete-package-versions:
+    name: Delete untagged images
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: snok/container-retention-policy@v3.0.0
+        with:
+          account: ${{ github.actor }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image-names: ${{ github.repository }}-quic-interop
+          tag-selection: untagged
+          cut-off: 0w
+          dry-run: false
