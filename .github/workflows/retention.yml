@@ -16,5 +16,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           image-names: ${{ github.repository }}-quic-interop
           tag-selection: untagged
-          cut-off: 0w
+          cut-off: 1s
+          account_type: personal
           dry-run: false
