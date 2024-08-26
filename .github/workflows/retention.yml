@@ -17,7 +17,7 @@ jobs:
           image-names: ${{ github.repository }}-quic-interop
           untagged-only: true
           #tag-selection: untagged
-          #cut-off: '1s'
+          cut-off: 1h
           account-type: 'personal'
           dry-run: false
 
