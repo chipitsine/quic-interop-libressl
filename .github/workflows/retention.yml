@@ -14,7 +14,7 @@ jobs:
         with:
           account: ${{ github.actor }}
           token: ${{ secrets.GITHUB_TOKEN }}
-          image-names: ${{ github.repository }}-quic-interop
+          image-names: ghcr.io/${{ github.actor }}/${{ github.repository }}-quic-interop
           tag-selection: untagged
           cut-off: 0w
           dry-run: false
