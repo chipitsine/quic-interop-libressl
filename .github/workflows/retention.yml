@@ -12,10 +12,15 @@ jobs:
     steps:
       - uses: snok/container-retention-policy@master
         with:
-          account: ${{ github.repository_owner }}
+          org-name: ${{ github.repository_owner }}
           token: ${{ secrets.GITHUB_TOKEN }}
           image-names: ${{ github.repository }}-quic-interop
-          tag-selection: untagged
+          untagged-only: true
+          #tag-selection: untagged
           cut-off: '1s'
-          account_type: 'personal'
+          account-type: 'personal'
           dry-run: false
+
+
+
+   #         [ 'org-name', 'image-names', 'timestamp-to-use', 'cut-off',  'skip-tags', 'keep-at-least', 'filter-tags', 'filter-include-untagged', 'dry-run', 'token-type']
