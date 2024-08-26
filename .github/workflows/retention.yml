@@ -10,7 +10,7 @@ jobs:
       contents: read
       packages: write
     steps:
-      - uses: snok/container-retention-policy@v3.0.0
+      - uses: snok/container-retention-policy@master
         with:
           account: ${{ github.repository_owner }}
           token: ${{ secrets.GITHUB_TOKEN }}
