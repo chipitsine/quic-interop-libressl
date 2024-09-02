@@ -19,9 +19,9 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Clone docker image definition
-        run: |
-          git clone -b libressl https://github.com/haproxytech/haproxy-qns
+#      - name: Clone docker image definition
+#        run: |
+#          git clone -b libressl https://github.com/haproxytech/haproxy-qns
 
       - name: Build and push Docker image
         id: push

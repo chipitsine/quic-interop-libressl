@@ -1,0 +1,29 @@
+--- ssl/tls13_quic.c.orig	2024-09-02 21:39:50.695212889 +0200
++++ ssl/tls13_quic.c	2024-09-02 21:42:49.510947884 +0200
+@@ -131,6 +131,8 @@
+ {
+ 	struct tls13_ctx *ctx = arg;
+ 	SSL *ssl = ctx->ssl;
++        uint8_t alert_level = TLS13_ALERT_LEVEL_FATAL;
++        int ret = TLS13_IO_ALERT;
+ 
+ 	if (!ssl->quic_method->send_alert(ssl, ctx->hs->tls13.quic_write_level,
+ 	    alert_desc)) {
+@@ -138,7 +140,16 @@
+ 		return TLS13_IO_FAILURE;
+ 	}
+ 
+-	return TLS13_IO_SUCCESS;
++       if (alert_desc == TLS13_ALERT_CLOSE_NOTIFY ||
++           alert_desc == TLS13_ALERT_USER_CANCELED) {
++               alert_level = TLS13_ALERT_LEVEL_WARNING;
++               ret = TLS13_IO_SUCCESS;
++       }
++
++       tls13_record_layer_alert_sent_callback(ctx->rl, alert_level, alert_desc);
++
++       return ret;
++
+ }
+ 
+ static const struct tls13_record_layer_callbacks quic_rl_callbacks = {

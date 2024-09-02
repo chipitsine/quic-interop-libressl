@@ -1,0 +1,11 @@
+--- ssl/tls13_internal.h	2024-09-02 21:36:59.407620118 +0200
++++ ssl/tls13_internal.h	2024-09-02 21:38:34.213611773 +0200
+@@ -200,6 +200,8 @@
+ void tls13_record_layer_free(struct tls13_record_layer *rl);
+ void tls13_record_layer_set_callbacks(struct tls13_record_layer *rl,
+     const struct tls13_record_layer_callbacks *callbacks, void *cb_arg);
++void tls13_record_layer_alert_sent_callback(struct tls13_record_layer *rl,
++    uint8_t alert_level, uint8_t alert_desc);
+ void tls13_record_layer_allow_ccs(struct tls13_record_layer *rl, int allow);
+ void tls13_record_layer_allow_legacy_alerts(struct tls13_record_layer *rl, int allow);
+ void tls13_record_layer_rcontent(struct tls13_record_layer *rl, CBS *cbs);
