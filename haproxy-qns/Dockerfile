@@ -6,7 +6,7 @@ RUN apt-get -y update && apt-get -y install git make gcc autoconf libtool
 ADD *.patch /tmp/
 
 RUN git clone https://github.com/libressl/portable.git libressl
-RUN cd /libressl && ./autogen.sh && autoreconf -fvi && ./configure && patch -p0 < /tmp/libressl-1.patch && patch -p0 < /tmp/libressl-2.patch && patch -p0 < /tmp/libressl-3.patch && make && make install
+RUN cd /libressl && ./autogen.sh && autoreconf -fvi && ./configure && make && make install
 
 FROM ubuntu:20.04 AS builder
 
