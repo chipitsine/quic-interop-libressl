@@ -38,7 +38,7 @@ jobs:
     strategy:
       matrix:
         suite: [
-          { client: ngtcp2, tests: "http3" }
+          { client: ngtcp2, tests: "handshake,transfer,longrtt,multiplexing,retry,http3,blackhole,amplificationlimit,transferloss,transfercorruption,v2" }
         ]
       fail-fast: false
 
@@ -69,7 +69,7 @@ jobs:
           git clone https://github.com/quic-interop/quic-interop-runner
           cd quic-interop-runner
           pip install -r requirements.txt --break-system-packages
-          python run.py -j result.json -l logs -r haproxy=ghcr.io/${{ github.repository }}-quic-interop:libressl  -c ${{ matrix.suite.client }} -s haproxy
+          python run.py -j result.json -l logs -r haproxy=ghcr.io/${{ github.repository }}-quic-interop:libressl -t ${{ matrix.suite.tests }} -c ${{ matrix.suite.client }} -s haproxy
 
 
       - name: Delete succeeded logs
