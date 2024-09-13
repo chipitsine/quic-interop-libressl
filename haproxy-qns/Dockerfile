@@ -7,7 +7,7 @@ ADD *.patch /tmp/
 
 RUN git clone https://github.com/libressl/portable.git libressl
 RUN cd /libressl 
-RUN ./autogen.sh 
+#RUN ./autogen.sh 
 RUN autoreconf -fvi 
 RUN make 
 RUN make install
