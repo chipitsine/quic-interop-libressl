@@ -24,7 +24,7 @@ jobs:
         id: push
         uses: docker/build-push-action@v5
         with:
-          context: https://github.com/haproxytech/haproxy-qns
+          context: https://github.com/haproxytech/haproxy-qns.git
           push: true
           build-args: |
             SSLLIB: LibreSSL
