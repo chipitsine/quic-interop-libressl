@@ -22,7 +22,9 @@ jobs:
 
       - name: Build and push Docker image
         id: push
-        uses: docker/build-push-action@v5
+        env: |
+          DOCKER_BUILD_RECORD_RETENTION_DAYS: 1
+        uses: docker/build-push-action@v6
         with:
           context: https://github.com/haproxytech/haproxy-qns.git
           push: true
