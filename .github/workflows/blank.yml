@@ -26,7 +26,7 @@ jobs:
           DOCKER_BUILD_RECORD_RETENTION_DAYS: 1
         uses: docker/build-push-action@v6
         with:
-          context: https://github.com/haproxytech/haproxy-qns.git
+          context: https://github.com/chipitsine/haproxy-qns.git
           push: true
           build-args: |
             SSLLIB: LibreSSL
@@ -37,7 +37,7 @@ jobs:
     strategy:
       matrix:
         suite: [
-          { client: ngtcp2, tests: "handshake,transfer,longrtt,chacha20,multiplexing,retry,http3,blackhole,amplificationlimit,handshakeloss,transferloss,handshakecorruption,transfercorruption,v2" }
+          { client: ngtcp2, tests: "goodput,crosstraffic" }
         ]
       fail-fast: false
 
@@ -70,16 +70,16 @@ jobs:
           pip install -r requirements.txt --break-system-packages
           python run.py -j result.json -l logs -r haproxy=ghcr.io/${{ github.repository }}:libressl -t ${{ matrix.suite.tests }} -c ${{ matrix.suite.client }} -s haproxy
 
-      - name: Delete succeeded logs
-        if: failure()
-        run: |
-          cd quic-interop-runner/logs/haproxy_${{ matrix.suite.client }}
-          cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name' | xargs rm -rf
-
-      - name: Logs upload
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs-${{ matrix.suite.client }}
-          path: quic-interop-runner/logs/
-          retention-days: 6
+#      - name: Delete succeeded logs
+#        if: failure()
+#        run: |
+#          cd quic-interop-runner/logs/haproxy_${{ matrix.suite.client }}
+#          cat ../../result.json | jq -r '.results[][] | select(.result=="succeeded") | .name' | xargs rm -rf
+#
+#      - name: Logs upload
+#        if: failure()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: logs-${{ matrix.suite.client }}
+#          path: quic-interop-runner/logs/
+#          retention-days: 6
