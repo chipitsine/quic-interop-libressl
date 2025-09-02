@@ -26,8 +26,7 @@ jobs:
           DOCKER_BUILD_RECORD_RETENTION_DAYS: 1
         uses: docker/build-push-action@v6
         with:
-          context: https://github.com/haproxytech/haproxy-qns.git
-          push: true
+          context: https://github.com/chipitsine/haproxy-qns.git#88d12407-f1ea-4fb0-8952-3ad006669589
   #        build-args: |
   #          SSLLIB: AWS-LC
           tags: ghcr.io/${{ github.repository }}:libressl
